@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "3dfix.lib": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>ThreeDFix</RootNamespace>
+    <AssemblyName>3dfix</AssemblyName>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>3dfix</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Authors>Jon Gallant</Authors>
+    <Company>Jon Gallant</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jongio/3dfix</RepositoryUrl>
+    <Description>A console app that provides functionality to fix 3d print files.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.7.82" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\3dfix.lib\3dfix.lib.csproj" />
+  </ItemGroup>
+
+</Project>

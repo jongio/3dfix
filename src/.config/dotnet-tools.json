@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "3dfix": {
+      "version": "1.0.3",
+      "commands": [
+        "3dfix"
+      ]
+    }
+  }
+}
