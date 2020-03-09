@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>ThreeDFix.test</RootNamespace>
+    <LangVersion>8</LangVersion>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -20,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="assets\brokenbottle_class_stream.3mf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="assets\brokenbottle_class_relative.3mf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
