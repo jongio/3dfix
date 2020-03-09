@@ -51,11 +51,11 @@ https://www.nuget.org/packages/3dfix.lib/
 Fix a file on disk:
 ```csharp
 var fixer = new Fixer();
-await fixer.FixAsync(@"c:\file.3mf");
+var outputFile = await fixer.FixAsync(@"c:\file.3mf");
 ```
 
 Fix a stream:
 ```csharp
 var fixer = new Fixer();
-await fixer.FixAsync(File.OpenRead(@"c:\file.3mf"));
+using var outputStream = await fixer.FixAsync(File.OpenRead(@"c:\file.3mf"));
 ```
