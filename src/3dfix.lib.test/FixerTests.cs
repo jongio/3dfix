@@ -10,51 +10,82 @@ namespace ThreeDFix.test
         [Fact]
         public async void CanFixFilesViaClass()
         {
-            string inputFilePath = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_class.3mf";
+            string inputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_class.3mf";
+            string outputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_class_fixed.3mf";
 
-            var fixer = new Fixer(inputFilePath);
 
-            DeleteFixedFile(fixer.OutputFilePath);
+            var fixer = new Fixer();
 
-            await fixer.FixAsync();
+            DeleteFile(outputFile);
 
-            Assert.True(File.Exists(fixer.OutputFilePath));
+            outputFile = await fixer.FixAsync(inputFile);
 
-            DeleteFixedFile(fixer.OutputFilePath);
+            Assert.True(File.Exists(outputFile));
+
+            DeleteFile(outputFile);
+        }
+
+        [Fact]
+        public async void CanFixStreamViaClass()
+        {
+            string inputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_class_stream.3mf";
+            string outputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_class_stream_fixed.3mf";
+
+            DeleteFile(outputFile);
+
+            using var inputStream = File.OpenRead(inputFile);
+
+            var fixer = new Fixer();
+
+            using (var stream = await fixer.FixAsync(inputStream))
+            {
+                using var outfile = File.Create(outputFile);
+
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.CopyTo(outfile);
+            }
+
+            var fileBytes = File.ReadAllBytes(outputFile);
+
+            Assert.True(fileBytes.Length > 0);
+
+            DeleteFile(outputFile);
         }
 
         [Fact]
         public async void CanFixFilesViaClassRelativePath()
         {
-            string inputFilePath = $".\\assets\\brokenbottle_class_relative.3mf";
+            string inputFile = $".\\assets\\brokenbottle_class_relative.3mf";
+            string outputFile = $".\\assets\\brokenbottle_class_relative_fixed.3mf";
 
-            var fixer = new Fixer(inputFilePath);
 
-            DeleteFixedFile(fixer.OutputFilePath);
+            var fixer = new Fixer();
 
-            await fixer.FixAsync();
+            DeleteFile(outputFile);
 
-            Assert.True(File.Exists(fixer.OutputFilePath));
+            await fixer.FixAsync(inputFile);
 
-            DeleteFixedFile(fixer.OutputFilePath);
+            Assert.True(File.Exists(fixer.OutputFile));
+
+            DeleteFile(fixer.OutputFile);
         }
 
         [Fact]
         public async void CanFixFilesViaConsole()
         {
-            string inputFilePath = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_console.3mf";
-            string outputFilePath = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_console_fixed.3mf";
+            string inputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_console.3mf";
+            string outputFile = $"{Environment.CurrentDirectory}\\assets\\brokenbottle_console_fixed.3mf";
 
-            DeleteFixedFile(outputFilePath);
+            DeleteFile(outputFile);
 
-            await Program.Main(new string[] { "--i", inputFilePath, "--o", outputFilePath });
+            await Program.Main(new string[] { "--i", inputFile, "--o", outputFile });
 
-            Assert.True(File.Exists(outputFilePath));
+            Assert.True(File.Exists(outputFile));
 
-            DeleteFixedFile(outputFilePath);
+            DeleteFile(outputFile);
         }
 
-        private void DeleteFixedFile(string file)
+        private void DeleteFile(string file)
         {
             if (File.Exists(file))
                 File.Delete(file);

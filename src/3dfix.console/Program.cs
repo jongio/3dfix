@@ -12,7 +12,7 @@ namespace ThreeDFix
             [Option('i', "input", Required = true, HelpText = "The absolute path to the 3d file to fix.")]
             public string Input { get; set; }
 
-            [Option('o', "output", Required = false, HelpText = "The absolute path to the fixed 3d file to output. Defaults to appending '_fixed' to the InputFilePath file name.")]
+            [Option('o', "output", Required = false, HelpText = "The absolute path to the fixed 3d file to output. Defaults to appending '_fixed' to the InputFile file name.")]
             public string Output { get; set; }
 
             [Option('v', "verbose", Required = false, HelpText = "Set to true to enable extended output.")]
@@ -36,8 +36,8 @@ namespace ThreeDFix
             var response = new Response();
             try
             {
-                response.Fixer = new Fixer(o.Input, o.Output);
-                await response.Fixer.FixAsync();
+                response.Fixer = new Fixer();
+                await response.Fixer.FixAsync(o.Input, o.Output);
                 response.Status = "Success";
             }
             catch (Exception exception)
