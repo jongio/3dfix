@@ -69,6 +69,12 @@ namespace ThreeDFix
         {
         }
 
+        /// <summary>
+        /// Fixes 3D printing inputFile and returns path to fixed file.
+        /// </summary>
+        /// <param name="inputFile">The absolute path to the file to be fixed.</param>
+        /// <param name="outputFile">The absolute path to the output fixed file. Defaults to appending '_fixed' to the InputFile file name.</param>
+        /// <returns>The absolute path to the fixed file.</returns>
         public async Task<string> FixAsync(string inputFile, string outputFile = "")
         {
             InputFile = inputFile;
@@ -89,11 +95,11 @@ namespace ThreeDFix
 
             return OutputFile;
         }
-
-
+        
         /// <summary>
-        /// Fixes the stream provided by the InputStream property or inputStream parameter and streams back the fixed file.
+        /// Fixes 3D printing file stream.
         /// </summary>
+        /// <param name="inputStream">The input file to be fixed as a Stream object.</param>
         /// <returns>The fixed file as a Stream.</returns>
         public async Task<Stream> FixAsync(Stream inputStream)
         {
@@ -144,12 +150,12 @@ namespace ThreeDFix
             }
         }
 
-        public static String GetAbsolutePath(String path)
+        private static String GetAbsolutePath(String path)
         {
             return GetAbsolutePath(null, path);
         }
-
-        public static String GetAbsolutePath(String basePath, String path)
+        
+        private static String GetAbsolutePath(String basePath, String path)
         {
             if (path == null)
                 return null;
